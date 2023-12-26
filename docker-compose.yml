@@ -1,0 +1,76 @@
+version: "3"
+
+networks:
+  ddbs_network:
+    driver: bridge
+
+services:
+  ddbsNamenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: ddbsNamenode
+    environment:
+      - CLUSTER_NAME=test
+    volumes:
+      - ${PWD}/db-generation/articles:/buffer
+    env_file:
+      - ./hadoop.env
+    ports:
+      - "9870:9870"
+    networks:
+      - ddbs_network
+
+  ddbs_datanode1:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: ddbs_datanode1
+    environment:
+      - SERVICE_PRECONDITION=ddbsNamenode:9870
+    env_file:
+      - ./hadoop.env
+    networks:
+      - ddbs_network
+    depends_on:
+      - ddbsNamenode
+
+  ddbs_datanode2:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: ddbs_datanode2
+    environment:
+      - SERVICE_PRECONDITION=ddbsNamenode:9870
+    env_file:
+      - ./hadoop.env
+    networks:
+      - ddbs_network
+    depends_on:
+      - ddbsNamenode
+
+  ddbs_mongo_1:
+    image: mongo:4.4.4
+    container_name: ddbs_mongo_1
+    volumes:
+      - ${PWD}/ddbs_1_data:/data_load
+    networks:
+      - ddbs_network
+
+  ddbs_mongo_2:
+    image: mongo:4.4.4
+    container_name: ddbs_mongo_2
+    volumes:
+      - ${PWD}/ddbs_2_data:/data_load
+    networks:
+      - ddbs_network
+
+  ddbs_mongo_1_bak:
+    image: mongo:4.4.4
+    container_name: ddbs_mongo_1_bak
+    volumes:
+      - ${PWD}/ddbs_1_data:/data_load
+    networks:
+      - ddbs_network
+
+  ddbs_mongo_2_bak:
+    image: mongo:4.4.4
+    container_name: ddbs_mongo_2_bak
+    volumes:
+      - ${PWD}/ddbs_2_data:/data_load
+    networks:
+      - ddbs_network
