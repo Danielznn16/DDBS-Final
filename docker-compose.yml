@@ -5,43 +5,88 @@ networks:
     driver: bridge
 
 services:
-  ddbsNamenode:
-    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
-    container_name: ddbsNamenode
+namenode:
+    image: bde2020/hadoop-namenode:1.1.0-hadoop2.7.1-java8
+    container_name: namenode
+    volumes:
+      - $(pwd)/db-generation/articles:/buffer
     environment:
       - CLUSTER_NAME=test
-    volumes:
-      - ${PWD}/db-generation/articles:/buffer
     env_file:
       - ./hadoop.env
+    networks:
+      - ddbs_network
     ports:
       - "9870:9870"
-    networks:
-      - ddbs_network
 
-  ddbs_datanode1:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
-    container_name: ddbs_datanode1
-    environment:
-      - SERVICE_PRECONDITION=ddbsNamenode:9870
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:1.1.0-hadoop2.7.1-java8
+    container_name: resourcemanager
+    depends_on:
+      - namenode
+      - datanode1
+      - datanode2
+      - datanode3
     env_file:
       - ./hadoop.env
     networks:
       - ddbs_network
-    depends_on:
-      - ddbsNamenode
 
-  ddbs_datanode2:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
-    container_name: ddbs_datanode2
-    environment:
-      - SERVICE_PRECONDITION=ddbsNamenode:9870
+  historyserver:
+    image: bde2020/hadoop-historyserver:1.1.0-hadoop2.7.1-java8
+    container_name: historyserver
+    depends_on:
+      - namenode
+      - datanode1
+      - datanode2
+      - datanode3
     env_file:
       - ./hadoop.env
     networks:
       - ddbs_network
+
+  nodemanager1:
+    image: bde2020/hadoop-nodemanager:1.1.0-hadoop2.7.1-java8
+    container_name: nodemanager1
     depends_on:
-      - ddbsNamenode
+      - namenode
+      - datanode1
+      - datanode2
+      - datanode3
+    env_file:
+      - ./hadoop.env
+    networks:
+      - ddbs_network
+
+  datanode1:
+    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
+    container_name: datanode1
+    depends_on:
+      - namenode
+    env_file:
+      - ./hadoop.env
+    networks:
+      - ddbs_network
+
+  datanode2:
+    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
+    container_name: datanode2
+    depends_on:
+      - namenode
+    env_file:
+      - ./hadoop.env
+    networks:
+      - ddbs_network
+
+  datanode3:
+    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
+    container_name: datanode3
+    depends_on:
+      - namenode
+    env_file:
+      - ./hadoop.env
+    networks:
+      - ddbs_network
 
   ddbs_mongo_1:
     image: mongo:4.4.4
@@ -74,3 +119,18 @@ services:
       - ${PWD}/ddbs_2_data:/data_load
     networks:
       - ddbs_network
+
+  python-app:
+    build: .
+    volumes:
+      - ${PWD}/backend:/usr/src/app
+    networks:
+      - ddbs_network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ddbs_mongo_1
+      - ddbs_mongo_2
+      - ddbs_mongo_1_bak
+      - ddbs_mongo_2_bak
+
