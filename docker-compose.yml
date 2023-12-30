@@ -9,7 +9,7 @@ services:
     image: bde2020/hadoop-namenode:1.1.0-hadoop2.7.1-java8
     container_name: namenode
     volumes:
-      - $(pwd)/db-generation/articles:/buffer
+      - ${PWD}/db-generation/articles:/buffer
     environment:
       - CLUSTER_NAME=test
     env_file:
