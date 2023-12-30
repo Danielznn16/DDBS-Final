@@ -127,7 +127,7 @@ services:
     networks:
       - ddbs_network
     ports:
-      - "8090:8090"
+      - "8060:8060"
     depends_on:
       - ddbs_mongo_1
       - ddbs_mongo_2
