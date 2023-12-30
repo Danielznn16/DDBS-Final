@@ -12,7 +12,7 @@ def getHDFS_file():
         return "File name is required", 400
 
     # HDFS Namenode URL and the file path in HDFS
-    hdfs_namenode = "http://namenode:9870"
+    hdfs_namenode = "http://namenode:50070"
     hdfs_file_path = f"/webhdfs/v1/{file_name}?op=OPEN"
 
     # Make a request to HDFS Namenode

@@ -28,7 +28,12 @@ echo "All containers are up and running."
 # Run your Python script
 python3 bulk_load_data.py
 
+
+echo "Use this command to check output: ssh -NL 50070:172.23.0.2:50070 zlnn17@183.172.159.11 -p 8080"
+
 # Execute command inside the container
-# docker exec -it ddbsNamenode bash -c "hadoop fs -mkdir -p /articles"
-# docker exec -it ddbsNamenode bash -c "hadoop fs -chmod -R 777 /articles"
-# docker exec -it ddbsNamenode bash -c "hadoop fs -put /buffer/* /articles/"
+docker exec -it namenode bash -c "hdfs dfs -mkdir /user"
+docker exec -it namenode bash -c "hdfs dfs -mkdir /user/root"
+docker exec -it namenode bash -c "hdfs dfs -mkdir articles"
+docker exec -it namenode bash -c "hadoop fs -put /buffer/* articles/"
+
