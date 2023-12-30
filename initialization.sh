@@ -17,7 +17,7 @@ is_container_healthy() {
 
 # Wait for containers to become healthy
 echo "Waiting for containers to become healthy..."
-for container in ddbsNamenode ddbsdatanode1 ddbsdatanode2; do
+for container in namenode datanode1 datanode2 datanode3; do
     while ! is_container_healthy "$container"; do
         echo "Waiting for $container..."
         sleep 5
