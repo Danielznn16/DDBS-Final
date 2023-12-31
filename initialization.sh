@@ -34,6 +34,7 @@ echo "Use this command to check output: ssh -NL 50070:172.23.0.2:50070 zlnn17@18
 # Execute command inside the container
 docker exec -it namenode bash -c "hdfs dfs -mkdir /user"
 docker exec -it namenode bash -c "hdfs dfs -mkdir /user/root"
-docker exec -it namenode bash -c "hdfs dfs -mkdir articles"
-docker exec -it namenode bash -c "hadoop fs -put /buffer/* articles/"
+docker exec -it namenode bash -c "hdfs dfs -mkdir /user/root/articles/"
+echo "copying"
+python3 bulk_load_file.py
 

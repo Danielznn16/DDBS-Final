@@ -16,6 +16,9 @@ services:
       - ./hadoop.env
     networks:
       - ddbs_network
+    ports:
+      - "50070:50070"
+
 
   resourcemanager:
     image: bde2020/hadoop-resourcemanager:1.1.0-hadoop2.7.1-java8
