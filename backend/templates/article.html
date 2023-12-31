@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Article {{ aid }}</title>
+</head>
+<body>
+    <h1>Article {{ aid }}</h1>
+    <div>
+        <h2>Text</h2>
+        <p>{{ text }}</p>
+    </div>
+    <div>
+        <h2>Images</h2>
+        {% for image in images %}
+            <img src="{{ image }}" alt="Image" style="max-width: 100%; height: auto;">
+        {% endfor %}
+    </div>
+    <div>
+        <h2>Videos</h2>
+        {% for video in videos %}
+            <video controls style="max-width: 100%; height: auto;">
+                <source src="{{ video }}" type="video/flv">
+                Your browser does not support the video tag.
+            </video>
+        {% endfor %}
+    </div>
+</body>
+</html>

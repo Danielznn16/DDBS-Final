@@ -4,88 +4,61 @@ networks:
   ddbs_network:
     driver: bridge
 
+
 services:
-  namenode:
-    image: bde2020/hadoop-namenode:1.1.0-hadoop2.7.1-java8
-    container_name: namenode
-    volumes:
-      - ${PWD}/db-generation/articles:/buffer
+  tracker:
+    image: delron/fastdfs
+    container_name: tracker
+    networks:
+      - ddbs_network
+    ports:
+      - "22122:22122"
+    command: "tracker"
+
+  storage0:
+    image: delron/fastdfs
+    container_name: storage0
     environment:
-      - CLUSTER_NAME=test
-    env_file:
-      - ./hadoop.env
+      - TRACKER_SERVER=tracker:22122
+    volumes:
+      - ${PWD}/db-generation/articles:/etc/fdfs_buffer/
+      # - ${PWD}/dfs_1_data:/etc/fdfs_buffer/
+      - ${PWD}/configs/storage0.conf:/etc/fdfs/storage.conf
+      - ${PWD}/configs/storage.conf:/usr/local/nginx/conf/nginx.conf
+    depends_on:
+      - tracker
     networks:
       - ddbs_network
-    # ports:
-    #   - "50070:50070"
+    ports:
+      - "8888:8888"
+      - "23000:23000"
+    command: "storage"
 
-
-  resourcemanager:
-    image: bde2020/hadoop-resourcemanager:1.1.0-hadoop2.7.1-java8
-    container_name: resourcemanager
+  storage1:
+    image: delron/fastdfs
+    container_name: storage1
+    environment:
+      - TRACKER_SERVER=tracker:22122
+    volumes:
+      # - ${PWD}/dfs_2_data/:/etc/fdfs_buffer/
+      - ${PWD}/configs/storage1.conf:/etc/fdfs/storage.conf
+      - ${PWD}/configs/storage.conf:/usr/local/nginx/conf/nginx.conf
     depends_on:
-      - namenode
-      - datanode1
-      - datanode2
-      - datanode3
-    env_file:
-      - ./hadoop.env
+      - tracker
     networks:
       - ddbs_network
+    ports:
+      - "8889:8888"
+      - "23001:23000"
+    command: "storage"
 
-  historyserver:
-    image: bde2020/hadoop-historyserver:1.1.0-hadoop2.7.1-java8
-    container_name: historyserver
-    depends_on:
-      - namenode
-      - datanode1
-      - datanode2
-      - datanode3
-    env_file:
-      - ./hadoop.env
-    networks:
-      - ddbs_network
-
-  nodemanager1:
-    image: bde2020/hadoop-nodemanager:1.1.0-hadoop2.7.1-java8
-    container_name: nodemanager1
-    depends_on:
-      - namenode
-      - datanode1
-      - datanode2
-      - datanode3
-    env_file:
-      - ./hadoop.env
-    networks:
-      - ddbs_network
-
-  datanode1:
-    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
-    container_name: datanode1
-    depends_on:
-      - namenode
-    env_file:
-      - ./hadoop.env
-    networks:
-      - ddbs_network
-
-  datanode2:
-    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
-    container_name: datanode2
-    depends_on:
-      - namenode
-    env_file:
-      - ./hadoop.env
-    networks:
-      - ddbs_network
-
-  datanode3:
-    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
-    container_name: datanode3
-    depends_on:
-      - namenode
-    env_file:
-      - ./hadoop.env
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/configs/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       - ddbs_network
 
@@ -96,6 +69,8 @@ services:
       - ${PWD}/ddbs_1_data:/data_load
     networks:
       - ddbs_network
+    ports:
+      - "27001:27017"
 
   ddbs_mongo_2:
     image: mongo:4.4.4
@@ -104,6 +79,8 @@ services:
       - ${PWD}/ddbs_2_data:/data_load
     networks:
       - ddbs_network
+    ports:
+      - "27002:27017"
 
   ddbs_mongo_1_bak:
     image: mongo:4.4.4
@@ -112,6 +89,8 @@ services:
       - ${PWD}/ddbs_1_data:/data_load
     networks:
       - ddbs_network
+    ports:
+      - "27003:27017"
 
   ddbs_mongo_2_bak:
     image: mongo:4.4.4
@@ -120,9 +99,12 @@ services:
       - ${PWD}/ddbs_2_data:/data_load
     networks:
       - ddbs_network
+    ports:
+      - "27004:27017"
 
   python-app:
     build: .
+    container_name: python-app
     volumes:
       - ${PWD}/backend:/usr/src/app
     networks:

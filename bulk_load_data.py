@@ -1,88 +1,56 @@
 # Code used to bulk seperate and then load data
-from utils import load_jsonl, dump_jsonl, StreamDumpBuffer, get_container_names
+from time import sleep
+from utils import load_jsonl
+import json
 from threading import Thread
 from tqdm import tqdm
 import subprocess
 
+# To wait for docker
+sleep(10)
+
 db1_user_set = set()
 db2_user_set = set()
+
 # Users
-users_db_1_data_buffer = StreamDumpBuffer()
-users_db_2_data_buffer = StreamDumpBuffer()
-
-users_db_1_out_thread = Thread(target=dump_jsonl, args=(users_db_1_data_buffer, "ddbs_1_data/user.jsonl"))
-users_db_2_out_thread = Thread(target=dump_jsonl, args=(users_db_2_data_buffer, "ddbs_2_data/user.jsonl"))
-
-users_db_1_out_thread.start()
-users_db_2_out_thread.start()
+user_db_1_out = open("ddbs_1_data/user.jsonl",'w')
+user_db_2_out = open("ddbs_2_data/user.jsonl",'w')
 
 for slic in tqdm(load_jsonl("db-generation/user.dat")):
 	if slic["region"]=="Beijing":
-		users_db_1_data_buffer(slic)
+		user_db_1_out.write(json.dumps(slic)+"\n")
 		db1_user_set.add(slic["uid"])
 	elif slic["region"]=="Hong Kong":
-		users_db_2_data_buffer(slic)
+		user_db_2_out.write(json.dumps(slic)+"\n")
 		db2_user_set.add(slic["uid"])
 	else:
 		print(slic)
 		assert(slic["region"] in ["Beijing", "HongKong"])
 
-users_db_1_data_buffer.done()
-users_db_2_data_buffer.done()
-
-# Articles
-articles_db_1_data_buffer = StreamDumpBuffer()
-articles_db_2_data_buffer = StreamDumpBuffer()
-
-articles_db_1_out_thread = Thread(target=dump_jsonl, args=(articles_db_1_data_buffer, "ddbs_1_data/article.jsonl"))
-articles_db_2_out_thread = Thread(target=dump_jsonl, args=(articles_db_2_data_buffer, "ddbs_2_data/article.jsonl"))
-
-articles_db_1_out_thread.start()
-articles_db_2_out_thread.start()
+article_db_1_out = open("ddbs_1_data/article.jsonl",'w')
+article_db_2_out = open("ddbs_2_data/article.jsonl",'w')
 
 for slic in tqdm(load_jsonl("db-generation/article.dat")):
 	if slic["category"]=="science":
-		articles_db_1_data_buffer(slic)
-		articles_db_2_data_buffer(slic)
+		article_db_1_out.write(json.dumps(slic)+"\n")
+		article_db_2_out.write(json.dumps(slic)+"\n")
 	elif slic["category"]=="technology":
-		articles_db_2_data_buffer(slic)
+		article_db_2_out.write(json.dumps(slic)+"\n")
 	else:
 		print(slic)
 		assert(slic["category"] in ["science", "technology"])
 
-articles_db_1_data_buffer.done()
-articles_db_2_data_buffer.done()
-
-# Read
-reads_db_1_data_buffer = StreamDumpBuffer()
-reads_db_2_data_buffer = StreamDumpBuffer()
-
-reads_db_1_out_thread = Thread(target=dump_jsonl, args=(reads_db_1_data_buffer, "ddbs_1_data/read.jsonl"))
-reads_db_2_out_thread = Thread(target=dump_jsonl, args=(reads_db_2_data_buffer, "ddbs_2_data/read.jsonl"))
-
-reads_db_1_out_thread.start()
-reads_db_2_out_thread.start()
+read_db_1_out = open("ddbs_1_data/read.jsonl",'w')
+read_db_2_out = open("ddbs_2_data/read.jsonl",'w')
 
 for slic in tqdm(load_jsonl("db-generation/read.dat")):
 	if slic["uid"] in db1_user_set:
-		reads_db_1_data_buffer(slic)
+		read_db_1_out.write(json.dumps(slic)+"\n")
 	elif slic["uid"] in db2_user_set:
-		reads_db_2_data_buffer(slic)
+		read_db_2_out.write(json.dumps(slic)+"\n")
 	else:
 		print(slic)
 		assert(slic["uid"] in db1_user_set or slic["uid"] in db2_user_set)
-
-reads_db_1_data_buffer.done()
-reads_db_2_data_buffer.done()
-
-# Clearning Up
-users_db_1_out_thread.join()
-users_db_2_out_thread.join()
-articles_db_1_out_thread.join()
-articles_db_2_out_thread.join()
-reads_db_1_out_thread.join()
-reads_db_2_out_thread.join()
-
 
 # Bulk Load With Mongo's mongo restore
 def import_data_to_mongo(container_name):
