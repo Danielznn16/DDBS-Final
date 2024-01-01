@@ -17,7 +17,10 @@ docker-compose up -d
 
 # Run your Python script
 python3 bulk_load_data.py
+sleep 5;
+python3 post_bulk_load_data.py
 docker exec -it python-app bash -c "cd /usr/src/app/ && python3 ./generate_beread.py"
+docker exec -it python-app bash -c "cd /usr/src/app/ && python3 ./generate_popular_rank.py"
 
 docker cp bulk_load_file.sh storage0:/etc/fdfs_buffer/
 

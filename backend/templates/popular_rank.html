@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Popular Articles</title>
+</head>
+<body>
+    <h1>Popular Articles - {{ rank.temporalGranularity.title() }} Rank</h1>
+    <h2>Starting from: {{ rank.begin_date }}</h2>
+    <div>
+        <h3>Top Articles</h3>
+        <ul>
+            {% for article in rank.article_list %}
+                <li>
+                    <a href="/frontend/article/{{ article.aid }}">Article {{ article.aid }}</a>
+                    <p> {{ article.text }} </p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

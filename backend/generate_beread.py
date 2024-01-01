@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from tqdm import tqdm
-clients = zip(
+import datetime
+clients = [
         [
             MongoClient(host="ddbs_mongo_1", port=27017),
             MongoClient(host="ddbs_mongo_2", port=27017),
@@ -9,7 +10,7 @@ clients = zip(
             MongoClient(host="ddbs_mongo_1_bak", port=27017),
             MongoClient(host="ddbs_mongo_2_bak", port=27017),
         ]
-    )
+    ]
 
 
 
@@ -34,6 +35,7 @@ for db1_client, db2_client in clients:
             )
 
         for read_record in db1_client.history.read.find(dict(aid=aid)):
+            read_record["timestamp"] = datetime.datetime.fromtimestamp(int(read_record["timestamp"])/1000).isoformat()
             beread["timestamp"].append(read_record["timestamp"])
             beread["readNum"]+=1
             beread["readUidList"].append(read_record["uid"])
@@ -48,6 +50,7 @@ for db1_client, db2_client in clients:
                 beread["shareUidList"].append(read_record["uid"])
 
         for read_record in db2_client.history.read.find(dict(aid=aid)):
+            read_record["timestamp"] = datetime.datetime.fromtimestamp(int(read_record["timestamp"])/1000).isoformat()
             beread["timestamp"].append(read_record["timestamp"])
             beread["readNum"]+=1
             beread["readUidList"].append(read_record["uid"])
@@ -61,6 +64,6 @@ for db1_client, db2_client in clients:
                 beread["shareNum"]+=1
                 beread["shareUidList"].append(read_record["uid"])
 
-        db2_client.history.beread.update_one(dict(aid=aid),{"$set":read_record},upsert=True)
+        db2_client.history.beread.update_one(dict(aid=aid),{"$set":beread},upsert=True)
         if article["category"] == "science":
-            db1_client.history.beread.update_one(dict(aid=aid),{"$set":read_record},upsert=True)
+            db1_client.history.beread.update_one(dict(aid=aid),{"$set":beread},upsert=True)

@@ -1,6 +1,6 @@
 # Code used to bulk seperate and then load data
 from time import sleep
-from utils import load_jsonl, dump_jsonl, StreamDumpBuffer, get_container_names
+from utils import load_jsonl, dump_jsonl, get_container_names
 from threading import Thread
 from tqdm import tqdm
 import subprocess
@@ -30,7 +30,7 @@ def refresh_file():
 	mapping = [dict(name=k,path=v) for k,v in mapping.items()]
 	dump_jsonl(mapping,"ddbs_1_data/file_map.jsonl")
 	dump_jsonl(mapping,"ddbs_2_data/file_map.jsonl")
-	
+
 refresh_file()
 for container in mongo_containers:
 	import_data_to_mongo(container)

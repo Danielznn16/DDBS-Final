@@ -1,10 +1,9 @@
 # Code used to bulk seperate and then load data
 from time import sleep
-from utils import load_jsonl
+from utils import load_jsonl, get_container_names
 import json
 from threading import Thread
 from tqdm import tqdm
-import subprocess
 
 # To wait for docker
 sleep(10)
@@ -51,22 +50,3 @@ for slic in tqdm(load_jsonl("db-generation/read.dat")):
 	else:
 		print(slic)
 		assert(slic["uid"] in db1_user_set or slic["uid"] in db2_user_set)
-
-# Bulk Load With Mongo's mongo restore
-def import_data_to_mongo(container_name):
-	print(f"Loading for {container_name}")
-	# Change the working directory to 'data_load'
-	data_load_path = '/data_load'  # Update with the actual path to your 'data_load' directory
-
-	# Import user.jsonl into the user table
-	subprocess.run(['docker', 'exec', container_name, 'mongoimport', f'--db=info', '--collection=user', f'{data_load_path}/user.jsonl'])
-
-	# Import article.jsonl into the article table
-	subprocess.run(['docker', 'exec', container_name, 'mongoimport', f'--db=info', '--collection=article', f'{data_load_path}/article.jsonl'])
-
-	# Import read.json into the read table
-	subprocess.run(['docker', 'exec', container_name, 'mongoimport', f'--db=history', '--collection=read', f'{data_load_path}/read.jsonl'])
-
-mongo_containers = sorted(get_container_names(prefix="ddbs_mongo_"),key=lambda x:len(x))
-for container in mongo_containers:
-	import_data_to_mongo(container)

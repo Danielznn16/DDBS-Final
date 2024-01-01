@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User {{ user.uid }}</title>
+</head>
+<body>
+    <h1>User: {{ user.uid }}</h1>
+    <div>
+        <p><strong>User ID:</strong> {{ user.uid }}</p>
+        <p><strong>Name:</strong> {{ user.name }}</p>
+        <p><strong>Gender:</strong> {{ user.gender }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.phone }}</p>
+        <p><strong>Department:</strong> {{ user.dept }}</p>
+        <p><strong>Grade:</strong> {{ user.grade }}</p>
+        <p><strong>Language:</strong> {{ user.language }}</p>
+        <p><strong>Region:</strong> {{ user.region }}</p>
+        <p><strong>Role:</strong> {{ user.role }}</p>
+        <p><strong>Prefer Tags:</strong> {{ user.preferTags }}</p>
+        <p><strong>Obtained Credits:</strong> {{ user.obtainedCredits }}</p>
+    </div>
+    <div>
+        <h2>User Read History</h2>
+        {% for entry in history %}
+            <div>
+                <h3>
+                    <a href="{{ entry.location }}">Article {{ entry.aid }}</a>
+                </h3>
+                <p>Timestamp: {{ entry.timestamp }}</p>
+                <p>Read Time Length: {{ entry.readTimeLength }} minutes</p>
+                <p>Agree: {{ 'Yes' if entry.agreeOrNot == '1' else 'No' }}</p>
+                <p>Comment: {{ 'Yes' if entry.commentOrNot == '1' else 'No' }}</p>
+                <p>Share: {{ 'Yes' if entry.shareOrNot == '1' else 'No' }}</p>
+                <p>Comment Details: {{ entry.commentDetail }}</p>
+                <div>
+                    <h4>Article Content:</h4>
+                    <p>{{ entry.text }}</p>
+                </div>
+            </div>
+        {% else %}
+            <p>No read history found for this user.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
