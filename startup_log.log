@@ -1,0 +1,133 @@
+# startup log
+# This is a complete log of the start up process
+
+
+Line 5: Tue Jan  9 16:21:18 CST 2024 - Command took 0 seconds
+rm: db-generation/articles/mapping_results.txt: No such file or directory
+Line 10: Tue Jan  9 16:21:19 CST 2024 - Command took 1 seconds
+[+] Running 8/7
+ ✔ Network ddbs-final_ddbs_network                                                                                                                        Created0.1s tainer ddbs_mongo_2           Creating                               0.0s 
+ ✔ Container tracker                                                                                                                                      Created0.1s tainer ddbs_mongo_2_bak       Creati...                              0.0s 
+ ✔ Container ddbs_mongo_2                                                                                                                                 Created0.1s 
+ ✔ Container ddbs_mongo_1                                                                                                                                 Created0.1s 
+ ✔ Container nginx                                                                                                                                        Created0.1s 
+ ✔ Container ddbs_mongo_2_bak                                                                                                                             Created0.1s 
+ ✔ Container ddbs_mongo_1_bak                                                                                                                             Create[+] Running 13/11
+ ✔ Network ddbs-final_ddbs_network                                                                                                                         Created0.1s 
+ ✔ Container tracker                                                                                                                                       Created0.1s ainer storage1                                                            ✔ Container ddbs_mongo_2                                                                                                                                  Created0.1s ainer storage0                                                            ✔ Container ddbs_mongo_1                                                                                                                                  Created0.1s 
+ ✔ Container nginx                                                                                                                                         Created0.1s 
+ ✔ Container ddbs_mongo_2_bak                                                                                                                              Created0.1s 
+ ✔ Container ddbs_mongo_1_bak                                                                                                                              Created0.1s 
+ ✔ Container python-app                                                         [+] Running 13/13                                                          Creat ✔ Network ddbs-final_ddbs_network                                                                                                                         Created0.1s t platform (linux/arm64/v8) and no specific platform was requested  0.0s 
+ ✔ Container tracker                                                                                                                                       Created0.1s 
+ ✔ Container ddbs_mongo_2                                                                                                                                  Created0.1s 
+ ✔ Container ddbs_mongo_1                                                                                                                                  Created0.1s age0 The requested image's platform (linux/amd64) does not match the dete ✔ Container nginx                                                                                                                                         Created0.1s 
+ ✔ Container ddbs_mongo_2_bak                                                                                                                              Created0.1s 
+ ✔ Container ddbs_mongo_1_bak                                                                                                                              Created0.1s 
+ ✔ Container python-app                                                         [+] Running 13/13                                                          Creat ✔ Network ddbs-final_ddbs_network                                                                                                                         Created0.1s t platform (linux/arm64/v8) and no specific platform was requested  0.0s 
+ ✔ Container tracker                                                                                                                                       Created0.1s 
+ ✔ Container ddbs_mongo_2                                                                                                                                  Created0.1s 
+ ✔ Container ddbs_mongo_1                                                                                                                                  Created0.1s age0 The requested image's platform (linux/amd64) does not match the dete ✔ Container nginx                                                                                                                                         Created0.1s 
+ ✔ Container ddbs_mongo_2_bak                                                                                                                              Created0.1s 
+ ✔ Container ddbs_mongo_1_bak                                                                                                                              Created0.1s 
+ ✔ Container python-app                                                         [+] Running 13/13                                                          Creat ✔ Network ddbs-final_ddbs_network                                                                                                                         Created0.1s t platform (linux/arm64/v8) and no specific platform was requested  0.0s 
+ ✔ Container tracker                                                                                                                                       Created0.1s 
+ ✔ Container ddbs_mongo_2                                                                                                                                  Created0.1s 
+ ✔ Container ddbs_mongo_1                                                                                                                                  Created0.1s age0 The requested image's platform (linux/amd64) does not match the dete ✔ Container nginx                                                                                                                                         Created0.1s 
+ ✔ Container ddbs_mongo_2_bak                                                                                                                              Created0.1s 
+ ✔ Container ddbs_mongo_1_bak                                                                                                                              Created0.1s 
+ ✔ Container python-app                                                         [+] Running 13/13                                                          Creat ✔ Network ddbs-final_ddbs_network                                                                                                                         Created0.1s t platform (linux/arm64/v8) and no specific platform was requested  0.0s 
+ ✔ Container tracker                                                                                                                                       Started0.1s 
+ ✔ Container ddbs_mongo_2                                                                                                                                  Started0.1s 
+ ✔ Container ddbs_mongo_1                                                                                                                                  Created0.1s age0 The requested image's platform (linux/amd64) does not match the dete ✔ Container nginx                                                                                                                                         Created0.1s 
+ ✔ Container ddbs_mongo_2_bak                                                                                                                              Started0.1s 
+ ✔ Container ddbs_mongo_1_bak                                                                                                                              Created0.1s 
+ ✔ Container python-app                                                         [+] Running 13/13                                                          Creat ✔ Network ddbs-final_ddbs_network                                                                                                                         Created0.1s t platform (linux/arm64/v8) and no specific platform was requested  0.0s 
+ ✔ Container tracker                                                                                                                                       Started0.1s 
+ ✔ Container ddbs_mongo_2                                                                                                                                  Started0.1s 
+ ✔ Container ddbs_mongo_1                                                                                                                                  Created0.1s age0 The requested image's platform (linux/amd64) does not match the dete ✔ Container nginx                                                                                                                                         Created0.1s 
+ ✔ Container ddbs_mongo_2_bak                                                                                                                              Started0.1s 
+ ✔ Container ddbs_mongo_1_bak                                                                                                                              Created0.1s 
+ ✔ Container python-app                                                         [+] Running 13/13                                                          Creat ✔ Network ddbs-final_ddbs_network                                                                                                                         Created0.1s t platform (linux/arm64/v8) and no specific platform was requested  0.0s 
+ ✔ Container tracker                                                                                                                                       Started0.1s 
+ ✔ Container ddbs_mongo_2                                                                                                                                  Started0.1s 
+ ✔ Container ddbs_mongo_1                                                                                                                                  Started0.1s age0 The requested image's platform (linux/amd64) does not match the dete ✔ Container nginx                                                                                                                                         Started0.1s 
+ ✔ Container ddbs_mongo_2_bak                                                                                                                              Started0.1s 
+ ✔ Container ddbs_mongo_1_bak                                                                                                                              Started0.1s 
+ ✔ Container python-app                                                         [+] Running 13/13                                                          Creat ✔ Network ddbs-final_ddbs_network                                                                                                                         Created0.1s t platform (linux/arm64/v8) and no specific platform was requested  0.0s 
+ ✔ Container tracker                                                                                                                                       Started0.1s 
+ ✔ Container ddbs_mongo_2                                                                                                                                  Started0.1s 
+ ✔ Container ddbs_mongo_1                                                                                                                                  Started0.1s age0 The requested image's platform (linux/amd64) does not match the dete ✔ Container nginx                                                                                                                                         Started0.1s 
+ ✔ Container ddbs_mongo_2_bak                                                                                                                              Started0.1s 
+ ✔ Container ddbs_mongo_1_bak                                                                                                                              Started0.1s 
+ ✔ Container python-app                                                                                                                                    Started0.0s 
+ ! tracker The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested  0.0s 
+ ✔ Container storage1                                                                                                                                      Started0.1s 
+ ✔ Container storage0                                                                                                                                      Started0.1s 
+ ! storage1 The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested 0.0s 
+ ! storage0 The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested 0.0s 
+Line 20: Tue Jan  9 16:21:20 CST 2024 - Command took 1 seconds
+10000it [00:00, 179607.58it/s]
+10000it [00:00, 181847.92it/s]
+1000000it [00:03, 298772.71it/s]
+Line 24: Tue Jan  9 16:21:33 CST 2024 - Command took 13 seconds
+Line 26: Tue Jan  9 16:21:38 CST 2024 - Command took 5 seconds
+Loading for ddbs_mongo_2
+2024-01-09T08:21:39.088+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:39.165+0000	4000 document(s) imported successfully. 0 document(s) failed to import.
+2024-01-09T08:21:39.257+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:39.379+0000	10000 document(s) imported successfully. 0 document(s) failed to import.
+2024-01-09T08:21:39.452+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:42.452+0000	[################........] history.read	59.5MB/89.2MB (66.7%)
+2024-01-09T08:21:43.847+0000	[########################] history.read	89.2MB/89.2MB (100.0%)
+2024-01-09T08:21:43.847+0000	428389 document(s) imported successfully. 0 document(s) failed to import.
+Loading for ddbs_mongo_1
+2024-01-09T08:21:43.926+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:44.002+0000	6000 document(s) imported successfully. 0 document(s) failed to import.
+2024-01-09T08:21:44.077+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:44.131+0000	4497 document(s) imported successfully. 0 document(s) failed to import.
+2024-01-09T08:21:44.209+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:47.209+0000	[############............] history.read	61.0MB/119MB (51.2%)
+2024-01-09T08:21:50.069+0000	[########################] history.read	119MB/119MB (100.0%)
+2024-01-09T08:21:50.069+0000	571611 document(s) imported successfully. 0 document(s) failed to import.
+Loading for ddbs_mongo_1_bak
+2024-01-09T08:21:50.201+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:50.291+0000	6000 document(s) imported successfully. 0 document(s) failed to import.
+2024-01-09T08:21:50.379+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:50.439+0000	4497 document(s) imported successfully. 0 document(s) failed to import.
+2024-01-09T08:21:50.519+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:53.520+0000	[############............] history.read	64.1MB/119MB (53.9%)
+2024-01-09T08:21:56.075+0000	[########################] history.read	119MB/119MB (100.0%)
+2024-01-09T08:21:56.076+0000	571611 document(s) imported successfully. 0 document(s) failed to import.
+Loading for ddbs_mongo_2_bak
+2024-01-09T08:21:56.155+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:56.212+0000	4000 document(s) imported successfully. 0 document(s) failed to import.
+2024-01-09T08:21:56.288+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:56.409+0000	10000 document(s) imported successfully. 0 document(s) failed to import.
+2024-01-09T08:21:56.502+0000	connected to: mongodb://localhost/
+2024-01-09T08:21:59.503+0000	[################........] history.read	62.8MB/89.2MB (70.4%)
+2024-01-09T08:22:00.748+0000	[########################] history.read	89.2MB/89.2MB (100.0%)
+2024-01-09T08:22:00.748+0000	428389 document(s) imported successfully. 0 document(s) failed to import.
+Line 28: Tue Jan  9 16:22:00 CST 2024 - Command took 22 seconds
+100%|█████████████████████████████████████████████████| 10000/10000 [00:24<00:00, 404.83it/s]
+100%|█████████████████████████████████████████████████| 10000/10000 [00:25<00:00, 395.00it/s]
+Line 30: Tue Jan  9 16:22:53 CST 2024 - Command took 53 seconds
+Line 32: Tue Jan  9 16:23:08 CST 2024 - Command took 15 seconds
+                                             Successfully copied 3.07kB to storage0:/etc/fdfs_buffer/
+Line 35: Tue Jan  9 16:23:08 CST 2024 - Command took 0 seconds
+Uploading Files
+Bulk upload complete. Mapping stored in /etc/fdfs_buffer/mapping_results.txt
+Line 39: Tue Jan  9 16:45:14 CST 2024 - Command took 1326 seconds
+Loading for ddbs_mongo_2
+2024-01-09T08:45:14.924+0000	connected to: mongodb://localhost/
+2024-01-09T08:45:15.257+0000	10075 document(s) imported successfully. 0 document(s) failed to import.
+Loading for ddbs_mongo_1
+2024-01-09T08:45:15.380+0000	connected to: mongodb://localhost/
+2024-01-09T08:45:15.803+0000	30479 document(s) imported successfully. 0 document(s) failed to import.
+Loading for ddbs_mongo_1_bak
+2024-01-09T08:45:15.923+0000	connected to: mongodb://localhost/
+2024-01-09T08:45:16.292+0000	30479 document(s) imported successfully. 0 document(s) failed to import.
+Loading for ddbs_mongo_2_bak
+2024-01-09T08:45:16.408+0000	connected to: mongodb://localhost/
+2024-01-09T08:45:16.929+0000	30479 document(s) imported successfully. 0 document(s) failed to import.
+Line 43: Tue Jan  9 16:45:16 CST 2024 - Command took 2 seconds
